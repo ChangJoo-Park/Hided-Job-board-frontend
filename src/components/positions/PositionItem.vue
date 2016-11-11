@@ -1,9 +1,14 @@
 <template lang="html">
-  <h1>Position Item</h1>
+  <div class="">
+    <h1>{{position.title}}</h1>
+  </div>
+
 </template>
 
 <script>
-export default {}
+export default {
+  props: ['position']
+}
 </script>
 
 <style lang="scss">

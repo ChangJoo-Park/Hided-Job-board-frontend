@@ -1,8 +1,7 @@
 <template lang="html">
   <div class="">
     <h1>Position List</h1>
-    {{positions}}
-    <PositionItem></PositionItem>
+    <PositionItem v-for="position in positions" v-bind:position="position"></PositionItem>
   </div>
 </template>
 

@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="position-list">
-    {{searchText}}
-    <!-- <SearchForm v-bind:searchText="searchText"></SearchForm> -->
     <div class="search-wrapper">
       <input type="text" placeholder="Search" class="search-bar" v-model="searchText">
     </div>
@@ -29,9 +27,18 @@ export default {
       searchText: ''
     }
   },
-  computed: mapGetters({
-    positions: 'allPositions'
-  }),
+  computed: {
+    ...mapGetters({
+      positions: 'allPositions'
+    }),
+    filterPositions: function () {
+      const filterText = this.searchText
+      const filteredPositions = this.positions.filter(function (position) {
+        return position.title.includes(filterText) || position.company.name.includes(filterText)
+      })
+      return filteredPositions
+    }
+  },
   created () {
     this.$store.dispatch('getAllPositions')
   },

@@ -25,9 +25,8 @@
     <h1>Position Lists</h1>
     <PositionTable
       :positions="positions"
-      :selectPosition="selectPosition"
-      :selectedPosition="selectedPosition"
-      :resetSelectedPosition="resetSelectedPosition"
+      v-on:selectPosition="selectPosition"
+      v-on:resetSelection="resetSelectedPosition"
       >
       </PositionTable>
   </div>
@@ -80,6 +79,7 @@ export default {
       this.selectedPosition = ''
     },
     selectPosition (position) {
+      console.log('selectPosition')
       this.selectedPosition = position
     },
     resetSelectedPosition () {

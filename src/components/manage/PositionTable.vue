@@ -24,7 +24,7 @@
         <td>{{position.company.email}}</td>
         <td>{{position.company.website}}</td>
         <td>
-          <button type="button" v-on:click="updatePosition(position)">Edit</button>
+          <button type="button" v-on:click="$emit('selectPosition', position)">Edit</button>
           <button type="button" v-on:click="deletePosition(position)">X</button>
         </td>
       </tr>
@@ -34,16 +34,12 @@
 
 <script>
 export default {
-  props: ['positions', 'selectPosition', 'selectedPosition', 'resetSelectedPosition'],
+  props: ['positions'],
   methods: {
     deletePosition (position) {
-      console.log('Vue Action Delete Position')
-      this.resetSelectedPosition()
+      this.$emit('resetSelection')
       // 확인
       this.$store.dispatch('deletePosition', position)
-    },
-    updatePosition (position) {
-      this.selectPosition(position)
     }
   }
 }

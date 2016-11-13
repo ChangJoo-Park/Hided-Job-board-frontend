@@ -39,7 +39,6 @@ export default {
     font-size: 1.4rem;
     text-decoration: none;
     color: black;
-    letter-spacing: -0.3px;
     line-height: 10px;
     padding-left: 1px;
     display: inline-block;

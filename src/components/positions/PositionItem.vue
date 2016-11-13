@@ -36,8 +36,8 @@
         <div class="col-sm-12 col-md-6">
           <h6>Contact:</h6>
           <ul class='job-contact'>
-            <li>{{position.company.email}}</li>
-            <li>{{position.company.website}}</li>
+            <li><a v-bind:href="'mailto:' + position.company.email">{{position.company.email}}</a></li>
+            <li><a v-bind:href="'http://' + position.company.website">{{position.company.website}}</a></li>
           </ul>
 
           <button class="job-apply">Apply This Job !</button>
@@ -93,6 +93,14 @@ $line-height: 6rem;
     color: $alt-color;
     .item-action .item-button {
       color: $alt-color;
+    }
+  }
+
+  a {
+    color: $alt-color;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
     }
   }
 

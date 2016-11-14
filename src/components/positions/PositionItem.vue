@@ -39,19 +39,15 @@
             <li><a v-bind:href="'mailto:' + position.company.email">{{position.company.email}}</a></li>
             <li><a v-bind:href="'http://' + position.company.website">{{position.company.website}}</a></li>
           </ul>
-
-          <button class="job-apply">Apply This Job !</button>
         </div>
         <div class="col-sm-12 col-md-6">
           <div class="description">
             <MarkdownView v-bind:rawMarkdown="position.description"></MarkdownView>
           </div>
         </div>
-        </div>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -178,22 +174,6 @@ $line-height: 6rem;
 
     .description {
       font-size: 1.5 rem;
-    }
-
-    .job-apply {
-      background: transparent;
-      border: 1px solid $alt-color;
-      color: $alt-color;
-      width: 80%;
-      margin: 2rem auto;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      cursor: pointer;
-
-      &:active,
-      &:focus {
-        outline: none;
-      }
     }
   }
 }

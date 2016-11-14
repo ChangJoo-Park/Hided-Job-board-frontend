@@ -15,6 +15,7 @@
   "dependencies": {
     "flexboxgrid": "^6.3.1",
     "marked": "^0.3.6",
+    "vee-validate": "next",
     "vue": "^2.0.1"
   },
   "devDependencies": {

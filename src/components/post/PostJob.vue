@@ -21,7 +21,7 @@
         </div>
         <div class="col-xs-12 col-sm-6">
           <div class="box">
-            <input type="submit" name="name" value="Submit" class="post-button">
+            <input type="submit" name="name" value="Submit" class="post-button" v-on:click="saveJob">
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@ export default {
       isEdit: true,
       newPosition: {
         title: '',
-        type: '',
+        type: 'Full Time',
         category: '',
         description: ''
       },
@@ -58,6 +58,18 @@ export default {
   methods: {
     showPreview () {
       this.isEdit = false
+    },
+    saveJob (e) {
+      e.preventDefault()
+      console.log('start Save Job')
+      const position = this.newPosition
+      position.company = this.newCompany
+
+      this.$store.dispatch('createPosition', position)
+      .then((data) => {
+        // Change Route
+        this.$router.push('/')
+      })
     }
   }
 }

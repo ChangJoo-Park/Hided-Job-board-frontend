@@ -56,6 +56,7 @@ export default {
       isNew: false,
       newPosition: {
         title: '',
+        salary: '',
         type: '',
         category: '',
         description: ''

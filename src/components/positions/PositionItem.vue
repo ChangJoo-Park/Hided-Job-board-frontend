@@ -16,9 +16,7 @@
         </div>
       </div>
       <div class="col-xs-2 item-meta">
-        <div class="box">
-          <span>{{position.createdAt}}</span>
-        </div>
+        <DaysAgo v-bind:createdAt="position.createdAt"></DaysAgo>
       </div>
       <div class="col-xs-1 item-action">
         <div class="box">
@@ -52,11 +50,13 @@
 
 <script>
 import MarkdownView from './PositionMarkdownView'
+import DaysAgo from './PositionDaysAgo'
 
 export default {
   props: ['position', 'removeActive'],
   components: {
-    MarkdownView
+    MarkdownView,
+    DaysAgo
   },
   methods: {
     toggleItem () {

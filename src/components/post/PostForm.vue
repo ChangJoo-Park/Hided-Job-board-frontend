@@ -42,7 +42,7 @@
                 type="text"
                 id="job-title"
                 name="job-title"
-                v-model="position.name"
+                v-model="position.title"
                 v-validate
                 data-rules="required"
                 placeholder="Savior"
@@ -122,7 +122,7 @@
               <label for="position-type">Type</label>
             </div>
             <div class="col-xs-12 col-sm-9 form-control">
-              <select class="" id="position-type" name="position-type">
+              <select class="" id="position-type" name="position-type" v-model="position.type">
                 <option value="Full Time">Full Time</option>
                 <option value="Part Time">Part Time</option>
                 <option value="Intern">Intern</option>

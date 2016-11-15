@@ -64,7 +64,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('getAllPositions')
+    this.$store.dispatch('getInitialPositions')
   },
   methods: {
     routeToPostJob () {

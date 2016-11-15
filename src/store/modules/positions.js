@@ -11,6 +11,12 @@ const state = {
 
 const actions = {
   getAllPositions ({ commit }) {
+    Vue.http.get('http://localhost:3000/positions?_sort=updatedAt&_order=DESC').then((response) => {
+      const positions = response.body
+      commit(types.RECEIVE_POSITIONS, { positions })
+    })
+  },
+  getInitialPositions ({ commit }) {
     Vue.http.get('http://localhost:3000/positions?_sort=updatedAt&_order=DESC&_limit=10&_page=1').then((response) => {
       const positions = response.body
       commit(types.RECEIVE_POSITIONS, { positions })

@@ -76,4 +76,8 @@ export default {
 </script>
 
 <style lang="scss">
+.actions-row {
+  margin: 0;
+  padding: 0;
+}
 </style>

@@ -1,32 +1,29 @@
 <template lang="html">
   <div class="">
+    <div class="button-wrapper" v-if="!isNew">
+      <button type="button" name="button" v-on:click="createSaveForm">New Position</button> |
+    </div>
+    <!-- Fake -->
+    <div class="button-wrapper">
+      <input type="number" name="dummy" min="1" max="100" v-model="dummyNumber">
+      <button type="button" name="button" v-on:click="createDummy">Generate Dummy</button>
+    </div>
     <div class="container">
-      <div class="button-wrapper" v-if="!isNew">
-        <button type="button" name="button" v-on:click="createSaveForm">New Position</button> |
-      </div>
-      <!-- Fake -->
-      <div class="button-wrapper">
-        <input type="number" name="dummy" min="1" max="100" v-model="dummyNumber">
-        <button type="button" name="button" v-on:click="createDummy">Generate Dummy</button>
-      </div>
-
       <!-- Save Form -->
       <SaveForm
         :isNew='isNew'
         :newPosition='newPosition'
         :newCompany='newCompany'
+        v-on:update="createPosition()"
+        v-on:cancel="resetSelectedPosition()"
       >
-        <div class="form-group button-wrapper" slot="actions">
-          <button type="button" name="button" v-on:click="createPosition()">Save</button>
-          <button type="button" name="button" v-on:click="resetSelectedPosition()">Cancel</button>
-        </div>
       </SaveForm>
       <!-- Edit Form -->
-      <EditForm v-bind:position="selectedPosition">
-        <div class="form-group" slot="actions">
-          <button type="button" name="button" v-if="selectedPosition" v-on:click="updatePosition(selectedPosition)">Update</button>
-          <button type="button" name="button" v-on:click="resetSelectedPosition()">Cancel</button>
-        </div>
+      <EditForm
+        v-bind:position="selectedPosition"
+        v-on:cancel="resetSelectedPosition()"
+        v-on:update="updatePosition(selectedPosition)"
+      >
       </EditForm>
     </div>
     <p>
@@ -133,7 +130,7 @@ export default {
       this.selectedPosition = ''
     },
     selectPosition (position) {
-      console.log('selectPosition')
+      this.isNew = false
       this.selectedPosition = position
     },
     resetSelectedPosition () {

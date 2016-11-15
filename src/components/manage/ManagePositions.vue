@@ -1,30 +1,43 @@
 <template lang="html">
   <div class="">
-    <div class="" v-if="!isNew">
-      <button type="button" name="button" v-on:click="createSaveForm">Create Save Form</button>
+    <div class="container">
+      <div class="button-wrapper" v-if="!isNew">
+        <button type="button" name="button" v-on:click="createSaveForm">New Position</button> |
+      </div>
+      <!-- Fake -->
+      <div class="button-wrapper">
+        <input type="number" name="dummy" min="1" max="100" v-model="dummyNumber">
+        <button type="button" name="button" v-on:click="createDummy">Generate Dummy</button>
+      </div>
+
+      <!-- Save Form -->
+      <SaveForm
+        :isNew='isNew'
+        :newPosition='newPosition'
+        :newCompany='newCompany'
+      >
+        <div class="form-group button-wrapper" slot="actions">
+          <button type="button" name="button" v-on:click="createPosition()">Save</button>
+          <button type="button" name="button" v-on:click="resetSelectedPosition()">Cancel</button>
+        </div>
+      </SaveForm>
+      <!-- Edit Form -->
+      <EditForm v-bind:position="selectedPosition">
+        <div class="form-group" slot="actions">
+          <button type="button" name="button" v-if="selectedPosition" v-on:click="updatePosition(selectedPosition)">Update</button>
+          <button type="button" name="button" v-on:click="resetSelectedPosition()">Cancel</button>
+        </div>
+      </EditForm>
     </div>
-    <!-- Save Form -->
-    <SaveForm
-      :isNew='isNew'
-      :newPosition='newPosition'
-      :newCompany='newCompany'
-    >
-      <div class="form-group" slot="actions">
-        <button type="button" name="button" v-on:click="createPosition()">Save</button>
-        <button type="button" name="button" v-on:click="resetSelectedPosition()">Cancel</button>
-      </div>
-    </SaveForm>
-    <!-- Edit Form -->
-    <EditForm v-bind:position="selectedPosition">
-      <div class="form-group" slot="actions">
-        <button type="button" name="button" v-if="selectedPosition" v-on:click="updatePosition(selectedPosition)">Update</button>
-        <button type="button" name="button" v-on:click="resetSelectedPosition()">Cancel</button>
-      </div>
-    </EditForm>
-    <hr>
-    <h1>Position Lists</h1>
+    <p>
+
+    </p>
+    <h1 class="header">Manage Positions</h1>
+    <div class="search-wrapper">
+      <input type="text" placeholder="Search" class="search-bar" v-model="searchText">
+    </div>
     <PositionTable
-      :positions="positions"
+      :positions="filterPositions"
       v-on:selectPosition="selectPosition"
       v-on:resetSelection="resetSelectedPosition"
       >
@@ -36,7 +49,7 @@
 import SaveForm from './PositionSaveForm.vue'
 import EditForm from './PositionEditForm.vue'
 import PositionTable from './PositionTable.vue'
-
+import faker from 'faker'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -45,13 +58,25 @@ export default {
     EditForm,
     PositionTable
   },
-
-  computed: mapGetters({
-    positions: 'allPositions'
-  }),
-
+  computed: {
+    ...mapGetters({
+      positions: 'allPositions'
+    }),
+    filterPositions: function () {
+      const filterText = this.searchText
+      const filteredPositions = this.positions.filter(function (position) {
+        return position.title.includes(filterText) ||
+               position.company.name.includes(filterText) ||
+               position.category.includes(filterText) ||
+               position.type.includes(filterText)
+      })
+      return filteredPositions
+    }
+  },
   data () {
     return {
+      searchText: '',
+      dummyNumber: 0,
       selectedPosition: '',
       isNew: false,
       newPosition: {
@@ -75,6 +100,34 @@ export default {
   },
 
   methods: {
+    createDummy () {
+      if (this.dummyNumber <= 0) {
+        return
+      }
+      for (let i = 0; i < this.dummyNumber; i++) {
+        const currency = faker.finance.currencySymbol()
+        const types = ['Full Time', 'Part Time', 'Intern']
+        const type = types[Math.floor(Math.random() * types.length)]
+        const createdAt = faker.date.past()
+        const position = {
+          title: faker.name.jobTitle(),
+          salary: `${currency}${faker.random.number()} - ${currency}${faker.random.number()}`,
+          type: type,
+          category: faker.name.jobType(),
+          description: faker.lorem.paragraphs(),
+          company: {
+            name: faker.company.companyName(),
+            location: `${faker.address.city()}, ${faker.address.country()}`,
+            email: faker.internet.email(),
+            website: faker.internet.url()
+          },
+          createdAt: createdAt
+        }
+        this.$store.dispatch('createPosition', position)
+      }
+
+      this.dummyNumber = 0
+    },
     createSaveForm () {
       this.isNew = true
       this.selectedPosition = ''
@@ -91,10 +144,6 @@ export default {
       const position = this.newPosition
       position.company = this.newCompany
       this.$store.dispatch('createPosition', position)
-      .then((data) => {
-        console.log('after create position')
-        console.dir(data)
-      })
     },
     updatePosition (position) {
       this.$store.dispatch('updatePosition', position)
@@ -107,4 +156,20 @@ export default {
 </script>
 
 <style lang="scss">
+.button-wrapper {
+  display: inline-block;
+  button {
+    border: 1px solid black;
+    border-radius: 0;
+    background-color: black;
+    color: white;
+  }
+
+  input[type='number'] {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+
+  }
+}
 </style>

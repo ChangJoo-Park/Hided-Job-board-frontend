@@ -6,7 +6,7 @@
     >
       <h1 slot="title">Update Position</h1>
       <div class="form-group button-wrapper" slot="actions">
-        <button type="button" name="button" v-if="position" v-on:update="$emit('update',selectedPosition)">Update</button>
+        <button type="button" name="button" v-if="position" v-on:click="$emit('update',position)">Update</button>
         <button type="button" name="button" v-on:click="$emit('cancel')">Cancel</button>
       </div>
     </PositionForm>

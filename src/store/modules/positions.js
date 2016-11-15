@@ -1,4 +1,4 @@
-import positionAPI from '../../api/position'
+
 import * as types from '../mutation-types'
 import Vue from 'vue'
 
@@ -36,13 +36,8 @@ const actions = {
     })
   },
   getPosition ({ commit }) {
-    positionAPI.getOne(position => {
-      commit(types.RECEIVE_POSITION, { position })
-    })
   },
   createPosition ({ commit }, newPosition) {
-    console.log('[Create Action] create position')
-    console.log(newPosition)
     Vue.http.post('http://localhost:3000/positions', {
       'title': newPosition.title,
       'salary': newPosition.salary,
@@ -71,17 +66,29 @@ const actions = {
     .then((response) => {
       commit(types.DELETE_POSITION, { position })
     })
-    // positionAPI.delete(
-    //   position,
-    //   (position) => commit(types.DELETE_POSITION, { position })
-    // )
   },
   updatePosition ({ commit }, position) {
     console.log('[Update Position] Call to API')
-    positionAPI.update(
-      position,
-      (position) => commit(types.UPDATE_POSITION, { position })
-    )
+    Vue.http.put(`http://localhost:3000/positions/${position.id}`, {
+      'title': position.title,
+      'salary': position.salary,
+      'description': position.description,
+      'type': position.type,
+      'category': position.category,
+      'company': {
+        'name': position.company.name,
+        'location': position.company.location,
+        'email': position.company.email,
+        'website': position.company.website
+      },
+      'updatedAt': new Date()
+    }).then((response) => {
+      console.log('success')
+      console.log(response)
+      const position = response.body
+      console.log(position)
+      commit(types.UPDATE_POSITION, {position})
+    })
   }
 }
 
@@ -101,7 +108,6 @@ const mutations = {
   },
   [types.UPDATE_POSITION] (state, { positions }) {
     console.log('Mutation with UPDATE')
-    // state.all = positions
   },
   [types.NEXT_POSITION] (state, { positions }) {
     for (let i = 0; i < positions.length; i++) {

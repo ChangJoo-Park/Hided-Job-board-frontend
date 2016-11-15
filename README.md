@@ -26,15 +26,15 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 ### Job List with load more
 
-![Imgur](http://i.imgur.com/v5lBwSZ.png)
+![Imgur](http://i.imgur.com/XbZQh8u.gif)
 
 ### Active Item
 
-![ActiveItem](http://i.imgur.com/C7GzQP9.png)
+![ActiveItem](http://i.imgur.com/ceanRdE.gif)
 
 ### Inline Search
 
-![Inline Search](http://i.imgur.com/2PTxPXF.png)
+![Inline Search](http://i.imgur.com/lJB6sLb.gif)
 
 ### Add Job
 

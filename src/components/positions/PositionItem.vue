@@ -52,6 +52,17 @@
 import MarkdownView from './PositionMarkdownView'
 import DaysAgo from './PositionDaysAgo'
 
+function findPos (obj) {
+  let curtop = 0
+  if (obj.offsetParent) {
+    do {
+      curtop += obj.offsetTop
+      obj = obj.offsetParent
+    } while (obj)
+    return [curtop]
+  }
+}
+
 export default {
   props: ['position', 'removeActive'],
   components: {
@@ -60,12 +71,14 @@ export default {
   },
   methods: {
     toggleItem () {
-      const itemClassList = this.$el.classList
+      const item = this.$el
+      const itemClassList = item.classList
       if (itemClassList.contains('active')) {
         itemClassList.toggle('active')
       } else {
         this.removeActive()
         itemClassList.add('active')
+        window.scroll(0, findPos(item))
       }
     }
   }
@@ -78,6 +91,7 @@ $alt-color: rgb(255, 255, 255);
 $gray-color-hover: rgba(191, 191, 191, 0.5);
 $sm-display: 48rem;
 $line-height: 6rem;
+$transition-duration: 0.1s;
 
 .item {
   border-bottom: 1px solid $base-color;
@@ -106,7 +120,7 @@ $line-height: 6rem;
 
   .company,
   .job-title {
-    transition: font-size 0.2s ease-in;
+    transition: font-size $transition-duration ease-in;
     font-size: 2rem;
     margin-bottom: 1rem;
   }
@@ -115,7 +129,7 @@ $line-height: 6rem;
   .job-category,
   .job-salary,
   .job-type {
-    transition: font-size 0.2s ease-in;
+    transition: font-size $transition-duration ease-in;
     margin: 0;
     font-size: 1.3rem;
   }

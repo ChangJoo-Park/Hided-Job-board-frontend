@@ -4,7 +4,7 @@ This project is Vue.js 2.0 job board example.
 Using [Vue](http://vuejs.org), [vue-router](https://github.com/vuejs/vue-router/), [vuex](https://github.com/vuejs/vuex/), [vue-resource](https://github.com/pagekit/vue-resource), [vee-validate](https://github.com/logaretm/vee-validate), [moment.js](http://momentjs.com/), [faker](https://github.com/marak/Faker.js/)
 
 
-> A Vue.js project
+> A Vue.js project inspired by [DESIGN JOB BOARD](https://www.designjobsboard.com/)
 
 ## Build Setup
 Must need **json-server** check this [dummy-server](https://github.com/ChangJoo-Park/Hided-Job-board-dummy-server)

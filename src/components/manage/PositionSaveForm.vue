@@ -1,48 +1,49 @@
 <template lang="html">
   <div class="" v-if="isNew">
     <h1>Save Form</h1>
-    <form class="" action="index.html" method="post">
+    <form class="">
       <h2>Company Infomation</h2>
       <div class="">
         <div class="form-group">
-          <label for="">Name : </label>
-          <input type="text" name="company" v-model="newCompany.name">
+          <label for="company-name">Name : </label>
+          <input id="company-name" type="text" name="company" v-model="newCompany.name">
         </div>
         <div class="form-group">
-          <label for="">Location : </label>
-          <input type="text" name="category" v-model="newCompany.location">
+          <label for="company-location">Location : </label>
+          <input id="company-location" type="text" name="category" v-model="newCompany.location">
         </div>
         <div class="form-group">
-          <label for="">Contact Email : </label>
-          <input type="text" name="category" v-model="newCompany.email">
+          <label for="company-email">Contact Email : </label>
+          <input id="company-email" type="text" name="category" v-model="newCompany.email">
         </div>
         <div class="form-group">
-          <label for="">Website : </label>
-          <input type="text" name="category" v-model="newCompany.website">
+          <label for="company-website">Website : </label>
+          <input id="company-website" type="text" name="category" v-model="newCompany.website">
         </div>
       </div>
 
       <hr>
+
       <h2>Position Infomation</h2>
       <div class="form-group">
-        <label for="">Title : </label>
-        <input type="text" name="title" v-model="newPosition.title">
+        <label for="position-title">Title : </label>
+        <input id="position-title" type="text" name="title" v-model="newPosition.title">
       </div>
       <div class="form-group">
-        <label for="">Type : </label>
-        <select class="" name="type" v-model="newPosition.type">
+        <label for="position-type">Type : </label>
+        <select id="position-type" class="" name="type" v-model="newPosition.type">
           <option value="Full Time">Full Time</option>
           <option value="Part Time">Part Time</option>
           <option value="Intern">Intern</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="">Category : </label>
-        <input type="text" name="category" v-model="newPosition.category">
+        <label for="position-category">Category : </label>
+        <input id="position-category" type="text" name="category" v-model="newPosition.category">
       </div>
       <div class="form-group">
-        <label for="">Description : </label>
-        <input type="text" name="category" v-model="newPosition.description">
+        <label for="position-description">Description : </label>
+        <textarea id="position-description" type="text" name="category" v-model="newPosition.description"></textarea>
       </div>
       <slot name="actions"></slot>
     </form>
